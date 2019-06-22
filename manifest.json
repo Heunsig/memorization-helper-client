@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "Memorization helper",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["src/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "scripts": ["src/words.js", "src/background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/mh-16.png",
+      "32": "icons/mh-32.png",
+      "48": "icons/mh-48.png"
+    },
+    "default_popup": "src/popup.html",
+    "default_title": "Memorization helper"
+  },
+  "permissions": ["storage", "tabs", "webNavigation", "activeTab", "*://*/*"]
+}
