@@ -14,7 +14,7 @@
         callback()
         console.log('working!!!')
         this.go(callback)
-      }, 500);
+      }, 300);
     }
 
     this.detact = () => {
@@ -38,41 +38,37 @@
       })
     })
 
-    port.onMessage.addListener(function(msg) {
-      if (msg) {
-        foo.detact()
-        if (msg.words) {
-          title.innerText = msg.title
-          ul.innerHTML = ''
-          for (list of msg.words) {
-            const li = document.createElement('li')
-            li.innerText = list[0] + `(${list.length})`
-            ul.appendChild(li)
-          }    
-        } else {
-            title.innerText = 'Nothing'
+    port.onMessage.addListener(function(request) {
+      if (request) {
+        if (request.msg === 'found') {
+          foo.detact()
+          if (request.data.words) {
+            const loading = document.getElementById('loading')
+            loading.style['display'] = 'none'
+
+            title.innerText = request.data.title
             ul.innerHTML = ''
-            const li = document.createElement('li')
-            li.innerText = 'No words found'
-            ul.appendChild(li)
+            for (list of request.data.words) {
+              const li = document.createElement('li')
+              li.innerText = list[0] + `(${list.length})`
+              ul.appendChild(li)
+            }    
+          } else {
+              const loading = document.getElementById('loading')
+              loading.style['display'] = 'none'
+
+              title.innerText = 'Nothing'
+              ul.innerHTML = ''
+              const li = document.createElement('li')
+              li.innerText = 'No words found'
+              ul.appendChild(li)
+          }
+
+        } else {
+          const loading = document.getElementById('loading')
+          loading.style['display'] = 'block'
         }
       }
     });
   })
 })()
-
-// if (background.word_lists_map[current_tab_id]) {
-//   title.innerText = background.word_lists_map[current_tab_id].title
-//   ul.innerHTML = ''
-//   for (list of background.word_lists_map[current_tab_id].words) {
-//     const li = document.createElement('li')
-//     li.innerText = list[0] + `(${list.length})`
-//     ul.appendChild(li)
-//   }    
-// } else {
-//     title.innerText = 'Nothing'
-//     ul.innerHTML = ''
-//     const li = document.createElement('li')
-//     li.innerText = 'No words found'
-//     ul.appendChild(li)
-// }

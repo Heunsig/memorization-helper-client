@@ -7,10 +7,6 @@
     name: "content"
   });
 
-  port.onMessage.addListener(function(msg) {
-    console.log("message recieved" + msg);
-  });
-
   let queue = null
   // Select the node that will be observed for mutations
   var targetNode = document.getElementsByTagName('body');
@@ -23,7 +19,6 @@
     clearTimeout(queue)
     queue = setTimeout(() => {
       port.postMessage({
-      // chrome.runtime.sendMessage({
         msg: 'send_content',
         data: {
           title: document.title,
@@ -33,8 +28,11 @@
     }, 700);
   };
 
-  send_content()
-  var observer = new MutationObserver(send_content)
-  observer.observe(targetNode[0], config)
+
+  if (targetNode.length) { 
+    send_content()
+    var observer = new MutationObserver(send_content)
+    observer.observe(targetNode[0], config)
+  }
 
 })()
