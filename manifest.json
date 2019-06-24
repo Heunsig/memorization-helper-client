@@ -7,12 +7,12 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": ["src/content.js"],
+      "js": ["src/js/content.js"],
       "run_at": "document_idle"
     }
   ],
   "background": {
-    "scripts": ["src/words.js", "src/background.js"],
+    "scripts": ["src/js/lib/compromise.js", "src/js/words.js", "src/js/background.js"],
     "persistent": false
   },
   "browser_action": {

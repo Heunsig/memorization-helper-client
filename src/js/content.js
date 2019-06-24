@@ -8,13 +8,9 @@
   });
 
   let queue = null
-  // Select the node that will be observed for mutations
   var targetNode = document.getElementsByTagName('body');
-
-  // Options for the observer (which mutations to observe)
   var config = { childList: true, subtree: true };
 
-  // Callback function to execute when mutations are observed
   var send_content = function(mutationsList, observer) {
     clearTimeout(queue)
     queue = setTimeout(() => {
@@ -25,14 +21,15 @@
           text: document.body.innerText
         }
       })
-    }, 700);
-  };
 
+    }, 700);
+  }
 
   if (targetNode.length) { 
     send_content()
     var observer = new MutationObserver(send_content)
     observer.observe(targetNode[0], config)
   }
+  
 
 })()
