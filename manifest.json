@@ -12,7 +12,13 @@
     }
   ],
   "background": {
-    "scripts": ["src/js/lib/compromise.js", "src/js/words.js", "src/js/background.js"],
+    "scripts": [
+      "src/js/lib/axios.min.js", 
+      "src/js/lib/compromise.js",
+      "src/js/background/auth.js",
+      "src/js/background/word_helpers.js",
+      "src/js/background.js"
+    ],
     "persistent": false
   },
   "browser_action": {
